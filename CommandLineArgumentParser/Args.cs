@@ -9,7 +9,7 @@ namespace CommandLineArgumentParser
 {
     public class Args
     {
-        public IDictionary<char, IArgumentMarshaler> marshalers;
+        private IDictionary<char, IArgumentMarshaler> marshalers;
         private IEnumerator<string> argumentsIterator;
         private HashSet<char> argsFound;
 
@@ -46,7 +46,7 @@ namespace CommandLineArgumentParser
             return 0;
         }
 
-        public Args(String schema, String[] args)
+        public Args(string schema, string[] args)
         {
             marshalers = new Dictionary<Char, IArgumentMarshaler>();
             argsFound = new HashSet<char>();
@@ -54,7 +54,7 @@ namespace CommandLineArgumentParser
             parseArgumentStrings(args.ToList());
         }
 
-        private void parseArgumentStrings(List<String> arguments)
+        private void parseArgumentStrings(List<string> arguments)
         {
             argumentsIterator = arguments.GetEnumerator();
             while (argumentsIterator.MoveNext())
@@ -97,9 +97,8 @@ namespace CommandLineArgumentParser
                 throw new ArgsException(ErrorCode.UNEXPECTED_ARGUMENT, firstCharacter, null);
             }
         }
-
-
-        public void parseSchema(string schema)
+        
+        private void parseSchema(string schema)
         {
             var elements = schema.Split(',');
             foreach (var element in elements)
